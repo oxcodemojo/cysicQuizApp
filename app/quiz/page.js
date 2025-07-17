@@ -269,15 +269,22 @@ export default function QuizPage() {
             {currentIndex + 1 === allQuestions.length ? 'Submit' : 'Next >>'}
           </button>
         </div>
+       {/* Explanation Section */}
+<div className="relative w-full max-w-md min-h-[80px] mt-6">
+  {showExplanation && (
+    <div className="absolute inset-0 bg-gray-900 p-4 rounded animate-fadeIn shadow-lg">
+      <p className="mb-2">
+        {isCorrect ? "✅ Correct!" : "❌ Wrong."}
+      </p>
+      <p className="text-sm text-green-400">💡: {quizData.explanation}</p>
+    </div>
+  )}
+</div>
+
       </div>
 
       {/* Explanation */}
-      {showExplanation && (
-        <div className="mt-6 bg-gray-900 p-4 rounded mb-4 w-full max-w-md">
-          <p className="mb-2">{isCorrect ? "✅ Correct!" : "❌ Wrong."}</p>
-          <p className="text-sm text-green-400">💡: {quizData.explanation}</p>
-        </div>
-      )}
+      
 
     </main>
   );
