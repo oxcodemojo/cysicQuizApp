@@ -127,7 +127,7 @@ export default function QuizPage() {
   };
 
   const shareOnX = () => {
-    const text = encodeURIComponent(`I scored ${score} on the Cysic Quiz! ${userCongrats.title} 🏆 #CysicQuiz`);
+    const text = encodeURIComponent(`I scored ${score}/${allQuestions.length} on the Cysic Quiz! ${userCongrats.title} 🏆 #CysicQuiz. Try ->>`);
     const url = encodeURIComponent(window.location.href);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'noopener,noreferrer');
   };
@@ -156,19 +156,19 @@ export default function QuizPage() {
             ref={cardRef}
             className="bg-gray-900 rounded-3xl p-8 max-w-md w-full text-center shadow-lg flex flex-col items-center"
           >
-            <h1 className="text-4xl font-extrabold mb-4 text-green-400">
+            <h1 className="text-4xl font-extrabold mb-4 text-cyan-400">
              Congratulations!
             </h1>
             <h2 className="text-2xl font-bold mb-2">{userCongrats.title}</h2>
             <p className="text-lg mb-6">{userCongrats.message}</p>
-            <p className="text-xl font-semibold mb-4">
+            <p className="text-xl font-semibold mb-4 text-cyan-400">
               You scored {score} out of {allQuestions.length}.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-between gap-3 w-full">
   <button
     onClick={retakeQuiz}
-    className="flex-1 bg-cyan-700 hover:bg-cyan-800 px-3 py-2 rounded text-white text-sm font-semibold text-center"
+    className="flex-1 bg-cyan-400 hover:bg-cyan-800 px-3 py-2 rounded text-white text-sm font-semibold text-center"
   >
     Retake Quiz
   </button>
@@ -180,7 +180,7 @@ export default function QuizPage() {
   </button>
   <button
     onClick={exitQuiz}
-    className="flex-1 bg-gray-700 hover:bg-red-800 px-3 py-2 rounded text-white text-sm font-semibold text-center"
+    className="flex-1 bg-red-700 hover:bg-red-800 px-3 py-2 rounded text-white text-sm font-semibold text-center"
   >
     Exit
   </button>
@@ -197,17 +197,17 @@ export default function QuizPage() {
 
       {/* Scoreboard */}
       <div className="mb-4 text-center">
-        <p className="text-sm text-gray-400">Score: {score} / {allQuestions.length}</p>
+        <p className="text-xl font-bold text-cyan-400">Score: {score} / {allQuestions.length}</p>
       </div>
 
       {/* Question Card */}
       <div className="relative bg-gray-900 rounded-4xl p-6 w-full max-w-md shadow-lg mb-6">
-        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gray-700 text-gray-300 text-xs px-4 py-1 rounded-full">
+        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white-300 text-xs px-4 py-1 rounded-full">
           Question {currentIndex + 1} of {allQuestions.length}
         </div>
 
-        <h2 className="text-xl text-justify mb-3 text-center">{quizData.summary}</h2>
-        <p className="text-l mb-5 text-center font-bold text-cyan-400 uppercase">{quizData.question}</p>
+        <h2 className="text-l text-justify mb-3 text-center">{quizData.summary}</h2>
+        <p className="text-xl mb-3 text-center font-bold text-cyan-400 ">{quizData.question}</p>
 
         <div className="space-y-2">
           {quizData.options.map((opt, idx) => {
@@ -248,7 +248,7 @@ export default function QuizPage() {
           <button
             onClick={prevQuestion}
             disabled={currentIndex === 0}
-            className="bg-cyan-700 hover:bg-gray-600 px-2 py-1 rounded text-sm"
+            className="bg-cyan-700 hover:bg-cyan-600 px-2 py-1 rounded text-sm"
           >
             {'<< '}Prev
           </button>
@@ -256,7 +256,7 @@ export default function QuizPage() {
           <button
             onClick={checkAnswer}
             disabled={showAnswers}
-            className="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded text-sm font-semibold"
+            className="bg-cyan-400 hover:bg-cyan-600 px-3 py-1 rounded text-bm font-bold"
           >
             Check Answer
           </button>
@@ -264,27 +264,22 @@ export default function QuizPage() {
           <button
             onClick={nextQuestion}
             disabled={!showAnswers}
-            className="bg-cyan-700 hover:bg-gray-600 px-2 py-1 rounded text-sm"
+            className="bg-cyan-700 hover:bg-cyan-600 px-2 py-1 rounded text-sm"
           >
             {currentIndex + 1 === allQuestions.length ? 'Submit' : 'Next >>'}
           </button>
         </div>
-       {/* Explanation Section */}
-<div className="relative w-full max-w-md min-h-[80px] mt-6">
-  {showExplanation && (
-    <div className="absolute inset-0 bg-gray-900 p-4 rounded animate-fadeIn shadow-lg">
-      <p className="mb-2">
-        {isCorrect ? "✅ Correct!" : "❌ Wrong."}
-      </p>
-      <p className="text-sm text-green-400">💡: {quizData.explanation}</p>
-    </div>
-  )}
-</div>
 
+         {/* Explanation */}
+      {showExplanation && (
+        <div className="mt-6 bg-gray-900 p-4 rounded mb-4 w-full max-w-md">
+          <p className="mb-2 text-green-300">{isCorrect ? "✅ Correct!" : "❌ Wrong."}</p>
+          <p className="text-sm text-white-400">💡: {quizData.explanation}</p>
+        </div>
+      )}
       </div>
 
-      {/* Explanation */}
-      
+     
 
     </main>
   );
